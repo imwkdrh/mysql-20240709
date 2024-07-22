@@ -1,0 +1,29 @@
+윈도우 no web
+
+설치
+custom
+mysql servers - 8.0.38
+applications - mysql workbench 8.0.38
+mysql router 
+samples and examples
+
+Execute
+next next
+
+Server Type - Development
+TCP/IP  Port 3306
+next 
+
+mysql root password - root
+start the mysql sever at system startup check
+nextnext excute
+finish
+
+connect to server 
+root
+root
+check
+
+connection name
+store in vault - root
+
