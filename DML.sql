@@ -60,7 +60,7 @@ UPDATE example_table A SET A.column1 =(
 SELECT B.num
 FROM auto_table B
 WHERE B.idx = 1);
-
+ 
 
 UPDATE example_table SET column1 =(
 SELECT example_table_alias.nid 
