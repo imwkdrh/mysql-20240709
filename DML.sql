@@ -52,6 +52,21 @@ CREATE TABLE auto_table (
 -- TRUNCATE TABLE : DDL 테이블 구조만 남기고 상태를 초기화
 -- DELETE FROM : DML 테이블 레코드만 제거
 
+-- INSERT INTO SELECT : 삽입 작업시에 조회 결과를 사용하여 삽입
+INSERT INTO example_table SELECT * FROM example_table  WHERE column1 IS NULL;
+
+-- UPDATE SELECT : 수정 작업시에 조회 결과를 사용하여 수정 (수정 값에 대하여)
+UPDATE example_table A SET A.column1 =(
+SELECT B.num
+FROM auto_table B
+WHERE B.idx = 1);
+
+
+UPDATE example_table SET column1 =(SELECT practice_sql_alias.example_table from(
+SELECT example_column2 
+FROM example_table  
+WHERE example_column2 = '데이터2') practice_sql_alias);
+
 INSERT INTO auto_table (num) VALUES (0);
 SELECT * FROM auto_table;
 
