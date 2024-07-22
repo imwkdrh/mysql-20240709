@@ -62,11 +62,19 @@ FROM auto_table B
 WHERE B.idx = 1);
 
 
-UPDATE example_table SET column1 =(SELECT practice_sql_alias.example_table from(
+UPDATE example_table SET column1 =(
+SELECT example_table_alias.nid 
+from (SELECT example_column2 nid 
+FROM example_table  
+WHERE example_column2 = '데이터2') example_table_alias);
+
+
+
+(SELECT practice_sql_alias.example_table from(
 SELECT example_column2 
 FROM example_table  
 WHERE example_column2 = '데이터2') practice_sql_alias);
-
+(SELECT example_table_alias.nid from (SELECT example_column2 nid FROM example_table  WHERE example_column2 = '데이터2') example_table_alias);
 INSERT INTO auto_table (num) VALUES (0);
 SELECT * FROM auto_table;
 
