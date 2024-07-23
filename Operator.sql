@@ -47,10 +47,12 @@ VALUES (9, '2024-07-20', '판매', '의료기구', 8000000, 800000, '휠체어')
 
 INSERT INTO transaction 
 VALUES (10, '2024-07-21', '판매', '영양제', 400000, 40000, '오메가3');
+INSERT INTO transaction 
+VALUES (11, '2024-07-22', '판매', '영양제', 400000, 40000, NULL, false);
 
 select * from transaction;
 show processlist;
-D
+
 -- 연산자
 
 -- 산술 연산자
@@ -64,22 +66,93 @@ SELECT amount + tax, breakdown FROM transaction;
 SELECT * FROM transaction WHERE transaction_type = '구매';
 
 -- <>, != : 좌항이 우항과 다르면 true
-SELECT * FROM transaction WHERE transaction_type <> '구매';
-SELECT * FROM transaction WHERE transaction_type != '구매';
+SELECT * FROM transaction 
+WHERE transaction_type <> '구매';
+SELECT * FROM transaction 
+WHERE transaction_type != '구매';
 
 -- < : 좌항이 우항보다 작으면 true
 -- <= : 좌항이 우항보다 작거나 같으면 true
-SELECT * FROM transaction WHERE amount <= 1200000;
-SELECT * FROM transaction WHERE amount < 1200000;
+SELECT * FROM transaction 
+WHERE amount <= 1200000;
+SELECT * FROM transaction 
+WHERE amount < 1200000;
 
 -- > : 좌항이 우항보다 크면 true
 -- >= : 좌항이 우항보다 크거나 같으면 true
-SELECT * FROM transaction WHERE amount > 1200000;
-SELECT * FROM transaction WHERE amount >= 1200000;
-
-ALTER TABLE transaction ADD complete BOOLEAN;
-
-UPDATE transaction SET complete = true WHERE (transaction_number % 3) =1;
-UPDATE transaction SET complete = false WHERE (transaction_number % 3) =2;
+SELECT * FROM transaction 
+WHERE amount > 1200000;
+SELECT * FROM transaction 
+WHERE amount >= 1200000;
 
 select * from transaction;
+ALTER TABLE transaction ADD complete BOOLEAN;
+
+UPDATE transaction SET complete = true 
+WHERE (transaction_number % 3) =1;
+UPDATE transaction SET complete = false 
+WHERE (transaction_number % 3) =2;
+
+
+
+UPDATE transaction SET note = null
+WHERE transaction_number = 6;
+
+-- <=> : 좌항과 우항이 모두 null이면 true
+SELECT * FROM transaction
+WHERE note <=> complete;
+
+-- IS : 좌항이 우항과 같으면 true (키워드)
+-- IS NOT : 좌항이 우항과 다르면 true (키워드)
+SELECT * FROM transaction
+WHERE complete IS TRUE;
+
+SELECT * FROM transaction
+WHERE complete IS NULL;
+
+SELECT * FROM transaction
+WHERE complete IS NOT NULL;
+
+-- BETWEEN a AND b : 좌항이 a보다 크거나 같으면서 b보다 작거나 같으면 true
+-- NOT BETWEEN a AND b : 좌항이 a보다 작거나 b보다 크면 true
+
+SELECT * from TRANSACTION where transaction_date BETWEEN '2024-07-15' AND '2024-07-20';
+SELECT * from TRANSACTION where transaction_date NOT BETWEEN '2024-07-15' AND '2024-07-20';
+
+-- IN() : 주어진 리스트 중에 하나라도 일치하면 true
+-- NOT IN() : 주어진 리스트 중에 하나도 일치하지 않으면 true
+SELECT * FROM transaction
+WHERE breakdown IN('노트북', '책상');
+
+
+-- 논리연산자
+
+-- AND (&&) : 좌항과 우항이 모두 true이면 true
+SELECT * FROM transaction 
+WHERE transaction_type = '판매' AND amount >= 1500000;
+-- OR (||) : 좌항 혹은 우항중 하나라도 true이면 true
+SELECT * FROM transaction 
+WHERE transaction_date >= '2024-07-15' OR transaction_type='판매';
+-- XOR : 좌항과 우항이 서로 다르면 true
+SELECT * FROM transaction
+WHERE transaction_date >='2024-07-15' XOR transaction_type = '판매';
+
+-- LIKE 연산자 : 문자열을 패턴을 기준으로 비교하고자 할 때 사용
+-- % : 임의의 개수(0 ~ 무한대)의 문자 표현
+-- _ : 임의의 한 개 문자 표현
+SELECT * FROM transaction
+WHERE transaction_date LIKE '2024-07-%';
+
+SELECT * FROM transaction
+WHERE transaction_date LIKE '2024_07-2_';
+
+SELECT * FROM transaction
+WHERE breakdown LIKE '의%';
+
+SELECT * FROM transaction
+WHERE transaction_date LIKE '%-10';
+
+SELECT * FROM transaction
+WHERE transaction_date LIKE '2024-__-13';
+
+
