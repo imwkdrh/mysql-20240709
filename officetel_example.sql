@@ -51,10 +51,40 @@ SELECT * FROM email_auth WHERE email = 'qwer1234@qwer.com' AND auth_number = '12
 INSERT INTO user(id, password, email) VALUES ('qwer1234', 'qwer1234', 'qwer1234@qwer.com');
 
 -- 게시물 리스트
-SELECT receipt_number,sattus,title,writer_id,write_date,view_count) FROM 
-	board WHERE title LIKE '%:title%' 
-	ORDER BY receipt_nubmer DESC
-	LIMIT 10;
+SELECT receipt_number,status,title,writer_id,write_date,view_count FROM board 
+	WHERE title LIKE '%두%' 
+	ORDER BY receipt_number DESC
+	LIMIT 0, 10;
+    
+-- 게시물 작성
+INSERT INTO board (title,contents,writer_id) VALUES ('열두번째 글', '냉무', 'qwer1234');
+    
+-- 게시물 상세보기
+UPDATE board SET view_count = view_count + 1
+	WHERE receipt_number = 1;
+SELECT receipt_number,title,writer_id,write_date,view_count,contents,reply FROM board
+	WHERE receipt_number = 1;
+    
+-- 답글 작성
+UPDATE board SET reply = '반갑습니다', status = true
+	WHERE receipt_number=1;
+
+    
+
+-- 게시물 수정
+UPDATE board SET title = '수정한 글', contents ='수정한 내용'
+	WHERE receipt_number = 1;
+    
+-- 게시물 삭제
+DELETE FROM board WHERE receipt_number = 1;
+
+
+    
+    
+    
+    
+    
+    
 
 
 
