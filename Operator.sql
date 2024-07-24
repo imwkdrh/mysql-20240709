@@ -8,6 +8,7 @@ use practice_sql;
 -- 금액 정수
 -- 세금 정수 
 -- 비고 장문의 문자열
+
 CREATE TABLE  transaction(
 	transaction_number INT,
     transaction_date DATE,
