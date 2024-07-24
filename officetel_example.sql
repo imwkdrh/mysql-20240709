@@ -51,10 +51,10 @@ SELECT * FROM email_auth WHERE email = 'qwer1234@qwer.com' AND auth_number = '12
 INSERT INTO user(id, password, email) VALUES ('qwer1234', 'qwer1234', 'qwer1234@qwer.com');
 
 -- 게시물 리스트
-SELECT receipt_number,sattus,title,writer_id,write_date,view_count) 
-FROM board WHERE title LIKE '%:title%' 
-ORDER BY receipt_nubmer DESC
-LIMIT 10;
+SELECT receipt_number,sattus,title,writer_id,write_date,view_count) FROM 
+	board WHERE title LIKE '%:title%' 
+	ORDER BY receipt_nubmer DESC
+	LIMIT 10;
 
 
 
