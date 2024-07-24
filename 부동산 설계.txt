@@ -75,28 +75,39 @@ Q&A 페이지
 ]
 
 회원 (user)
-- 아이디 [id VARCHAR(20) NOT NULL UNIQUE]
+- 아이디 [id VARCHAR(20) PRIMARY KEY]
 - 비밀번호 [password VARCHAR(255) NOT NULL]
 - 이메일 [email VARCHAR(100)  NOT NULL UNIQUE]
 - 가입경로 [join_path VARCHAR(5) NOT NULL 
 	DEFAULT 'HOME']
 - 권한 [role VARCHAR(6) NOT NULL DEFAULT 'NORMAL']
-- 이메일 관계 [user_email_fk FOREIGN KEY (email) 
-REFERENCES email_atuh(email) ]
+- 이메일 관계 CONSTRAINT [user_email_fk FOREIGN KEY (email) 
+	REFERENCES email_auth(email) ]
 
 게시물 [board)
 - 접수번호 [receipt_number INT PRIMARY KEY AUTO_INCREMENT]
 - 제목 [title VARCHAR(50) NOT NULL ]
 - 상태 [status BOOLEAN NOT NULL]
 - 작성자 [writer_id VARCHAR(20) NOT NULL]
-- 작성일 [write_date DATE NOT NULL DEFAULT now()]
+- 작성일 [write_date DATETIME NOT NULL DEFAULT now()]
 - 조회수 [view_count INT NOT NULL DEFAULT 0]
 - 내용 [contents VARCHAR(1000) NOT NULL ]
 - 답글 [reply TEXT]
 - 작성자 관계 [writer_fk FOREIGN KEY (writer_id) REFERNCES user(id)]
 
 
-
+=기능=
+-- 로그인 (아이디 비밀번호)
+-- 아이디 중복확인 (아이디)
+-- 이메일 인증번호 전송 (이메일)
+-- 이메일 인증확인 (이메일, 인증번호)
+-- 회원가입 (아이디, 비밀번호, 이메일)
+-- 게시물 리스트 (페이지 번호, 검색어(제목)) => (접수번호, 상태, 제목, 작성자, 작성일, 조회수) (~10개)
+-- 게시물 작성 (제목, 내용, 작성자 아이디)
+-- 게시물 상세보기 (접수번호) => (접수번호, 제목, 작성자, 작성일, 조회수, 내용, 답글)
+-- 답글 작성 (내용, 접수번호)
+-- 게시물 수정(제목, 내용, 접수번호)
+-- 게시물 삭제 (접수번호)
 
 
 
