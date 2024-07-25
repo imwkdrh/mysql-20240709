@@ -69,7 +69,7 @@ SELECT receipt_number,title,writer_id,write_date,view_count,contents,reply FROM 
 UPDATE board SET reply = '반갑습니다', status = true
 	WHERE receipt_number=1;
 
-    
+
 
 -- 게시물 수정
 UPDATE board SET title = '수정한 글', contents ='수정한 내용'
