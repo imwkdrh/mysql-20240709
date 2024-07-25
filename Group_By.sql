@@ -32,13 +32,56 @@ VALUES ('2024-07-08', 110000, 3);
 select * from sale;
 -- 집계 함수 : 여러 행의 레코드를 종합하여 하나의 결과값을 반환
 
--- COUNT() ; 특정 조건에 해당하는 레코드의 개수를 반환
+-- COUNT() ; 특정 조건에 해당하는 레코드의 개수를 반환                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 SELECT COUNT(*) FROM sale;
 SELECT COUNT(*) FROM sale WHERE amount<= 100000;
 
--- SUM() : 특정 조건에 해당하는 컬럼의 값을 모두 덯나 결과를 반환
+-- SUM() : 특정 조건에 해당하는 컬럼의 값을 모두 더한 결과를 반환
 SELECT SUM(amount) FROM sale;
 SELECT SUM(amount) FROM sale WHERE employee_number =1;
+
+-- AVG() : 특정 조건에 해당하는 컬럼의 값을 평균 결과를 반환
+SELECT AVG(amount) FROM sale;
+SELECT AVG(amount) FROM sale WHERE employee_number=1;
+
+-- MAX(), MIN() : 특정 조건에 해당하는 컬럼의 값의 최대값과 최소값을 반환
+SELECT MAX(amount), MIN(amount) FROM sale;
+
+-- 그룹화(GROUP BY) : 조회 결과에 대해 레코드를 하나 이상의 컬럼으로 그룹화하여 결과를 도출하는 것
+-- 일반적으로 집계함수와 함께 사용
+SELECT AVG(amount), employee_number FROM sale GROUP BY employee_number;
+
+-- 집계함수가 포함되어 있는 쿼리 혹은 그룹화가 되어있느 쿼리에서는
+-- 그룹화한 컬럼과 집계함수를 제외한 컬럼은 SELECT 절에서 사용이 불가능
+SELECT AVG(amount), date FROM sale
+GROUP BY employee_number;
+
+SELECT AVG(amount),employee_number, date FROM sale
+GROUP BY employee_number, date;
+
+SELECT employee_number, date FROM sale
+GROUP BY employee_number, date;
+
+-- 필터링(HAVING) : 그룹화된 결과에 필터 작업을 수행
+-- 주의!! WHERE 절과 사용방법이 비슷하지만 WHERE절은 조회시 사용, HAVING절은 조회 결과에 사용
+
+SELECT AVG(amount) '평균' ,employee_number '사원번호'
+FROM sale
+GROUP BY employee_number
+HAVING 평균 <= 110000;
+-- HAVING AVG(amount) <= 110000; 
+
+-- 결과 테이블에 존재하지 않는 컬럼은 HAVING절에서 사용 불가능
+SELECT AVG(amount) '평균' ,employee_number '사원번호'
+FROM sale
+GROUP BY employee_number
+HAVING date < '2024-07-05';
+
+
+SELECT AVG(amount) '평균' ,employee_number '사원번호' , date
+FROM sale
+GROUP BY employee_number,date
+HAVING date < '2024-07-05';
 
 
 
