@@ -31,8 +31,8 @@ SELECT * FROM nurse WHERE id = 'qwer1234';
 
 -- 전화번호 인증 
 -- 최종 사용자 (전화번호)
--- 서버측에서 인즈번호를 생성하여 사용자가  입력한 전화보호에 전송후
--- 전화번호 인증 테이블에 레코드(전화번호, 인증번호)를 추가하는 작업이 필요 
+-- 서버측에서 인증번호를 생성하여 사용자가  입력한 전화번호에 전송후
+-- 전화번호 인증 테이블에 레코드(전화번호, 인증번호)를 추가
 -- 필요한 추가 데이터 : 인증번호 (서버가 생성)
 
 -- 레코드 삽입시 이미 사용중인 전화번호 인지 검증
@@ -112,7 +112,7 @@ SELECT id, name, tel_number FROM nurse WHERE name = '홍길동';
 -- 고객 테이블에서 특정 고객을 조회하여 반환, 담당자 이름을 반환하기 위해 요양사 테이블을 조인
 -- 필요한 추가 데이터 : 고객 번호 (화면에서)
 SELECT C.customer_number, C.profile_image, C.name, C.birth, N.id, N.name, C.address FROM customer C
-INNER JOIN nurse N ON C.charger = N.nurse_id
+INNER JOIN nurse N ON C.charger = N.id
 WHERE C.customer_number=1;
 
 
